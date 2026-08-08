@@ -15,7 +15,7 @@ function ClevirClouds() {
     <Clouds
       material={THREE.MeshBasicMaterial}
       texture="/textures/cloud.png"
-      position={[0, 2, 8]}
+      position={[0, 1.5, 7]}
       frustumCulled={false}
     >
       <Cloud
