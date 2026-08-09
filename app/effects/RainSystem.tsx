@@ -4,7 +4,7 @@ import { useLayoutEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-const COUNT = 1500;
+const COUNT = 1200;
 
 export default function RainSystem() {
   const rainRef = useRef<THREE.InstancedMesh>(null);
