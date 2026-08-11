@@ -3,6 +3,7 @@
 import { useAppStore } from '@stores';
 import ScrollCamera from '@components/ScrollCamera';
 import CloudScene from '@scenes/CloudScene';
+import RoadScene from '@scenes/RoadScene';
 import RainSystem from '@effects/RainSystem';
 
 export default function MonsoonWorld() {
@@ -14,6 +15,7 @@ export default function MonsoonWorld() {
         <>
           <ScrollCamera />
           <CloudScene />
+          <RoadScene />
           <RainSystem />
         </>
       )}
