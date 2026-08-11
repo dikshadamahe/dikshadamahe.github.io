@@ -1,10 +1,10 @@
 'use client';
 
-import { useLayoutEffect, useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-const COUNT = 1200;
+const COUNT = 1500;
 
 export default function RainSystem() {
   const rainRef = useRef<THREE.InstancedMesh>(null);
@@ -22,18 +22,21 @@ export default function RainSystem() {
     return { positions, speeds };
   }, []);
 
-  useLayoutEffect(() => {
-    if (!rainRef.current) return;
-    for (let i = 0; i < COUNT; i++) {
-      dummy.position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]);
-      dummy.updateMatrix();
-      rainRef.current.setMatrixAt(i, dummy.matrix);
-    }
-    rainRef.current.instanceMatrix.needsUpdate = true;
-  }, [dummy, positions]);
+  // Seed instance matrices on first frame so drops are visible immediately
+  const seeded = useRef(false);
 
   useFrame((_, delta) => {
     if (!rainRef.current) return;
+
+    if (!seeded.current) {
+      for (let i = 0; i < COUNT; i++) {
+        dummy.position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]);
+        dummy.updateMatrix();
+        rainRef.current.setMatrixAt(i, dummy.matrix);
+      }
+      rainRef.current.instanceMatrix.needsUpdate = true;
+      seeded.current = true;
+    }
 
     for (let i = 0; i < COUNT; i++) {
       positions[i * 3 + 1] -= speeds[i] * delta * 60;
@@ -54,8 +57,8 @@ export default function RainSystem() {
 
   return (
     <instancedMesh ref={rainRef} args={[undefined, undefined, COUNT]} frustumCulled={false}>
-      <boxGeometry args={[0.015, 0.25, 0.015]} />
-      <meshBasicMaterial color="#A3C1D4" transparent opacity={0.45} depthWrite={false} />
+      <boxGeometry args={[0.01, 0.2, 0.01]} />
+      <meshBasicMaterial color="#A3C1D4" transparent opacity={0.4} />
     </instancedMesh>
   );
 }
