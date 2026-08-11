@@ -192,8 +192,8 @@ export default function SignboardScene() {
         <group renderOrder={2}>
           <DirectionalSign
             map={workTex}
-            position={[1.15, 3.45, 0.05]}
-            size={[3.4, 1.15]}
+            position={[1.35, 3.45, 0.05]}
+            size={[4.0, 1.15]}
             road="work"
             tiltSign={1}
             opacityRef={opacityRef}
@@ -204,8 +204,8 @@ export default function SignboardScene() {
         <group renderOrder={2}>
           <DirectionalSign
             map={projectsTex}
-            position={[-1.05, 2.35, 0.08]}
-            size={[3.15, 1.1]}
+            position={[-1.15, 2.35, 0.08]}
+            size={[3.6, 1.1]}
             road="projects"
             tiltSign={-1}
             opacityRef={opacityRef}
@@ -216,8 +216,8 @@ export default function SignboardScene() {
         <group renderOrder={2}>
           <DirectionalSign
             map={publicationsTex}
-            position={[1.1, 1.25, 0.06]}
-            size={[3.3, 1.15]}
+            position={[1.25, 1.25, 0.06]}
+            size={[3.8, 1.15]}
             road="publications"
             tiltSign={1}
             opacityRef={opacityRef}
