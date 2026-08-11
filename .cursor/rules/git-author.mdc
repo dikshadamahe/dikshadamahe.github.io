@@ -1,0 +1,31 @@
+---
+description: Git commits/pushes must use dikshadamahe authorship
+alwaysApply: true
+---
+
+# Git author for this project
+
+All commits in this repo must be authored as:
+
+- **Name:** `dikshadamahe`
+- **Email:** `dikshadamahe1@gmail.com`
+
+## Required behavior
+
+- When committing, always set author for that command only (do **not** run `git config`):
+
+```powershell
+git -c user.name="dikshadamahe" -c user.email="dikshadamahe1@gmail.com" commit -m "message"
+```
+
+- Or use:
+
+```powershell
+git commit --author="dikshadamahe <dikshadamahe1@gmail.com>" -m "message"
+```
+
+  Prefer the `-c user.name` / `-c user.email` form so **both author and committer** match.
+
+- Never commit as `Pracheer` or any other identity in this project.
+- After committing, push to `origin` when the user asks to push.
+- If a just-created local commit has the wrong author and has **not** been pushed, amend with the correct `-c user.name` / `-c user.email` (and `--reset-author`) only when amend rules allow.
