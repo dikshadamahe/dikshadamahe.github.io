@@ -3,13 +3,13 @@ import localFont from 'next/font/local';
 import './globals.css';
 
 const yatraOne = localFont({
-  src: '../Yatra_One/YatraOne-Regular.ttf',
+  src: '../public/fonts/YatraOne-Regular.ttf',
   variable: '--font-yatra-one',
   display: 'swap',
 });
 
 const cormorantGaramond = localFont({
-  src: '../Cormorant_Garamond/CormorantGaramond-VariableFont_wght.ttf',
+  src: '../public/fonts/CormorantGaramond-Bold.ttf',
   variable: '--font-cormorant',
   display: 'swap',
 });
