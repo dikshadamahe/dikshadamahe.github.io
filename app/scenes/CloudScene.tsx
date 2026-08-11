@@ -217,17 +217,19 @@ export default function CloudScene() {
         </group>
       </Clouds>
 
-      {/* Sized like clevir.li title (~1.2); rises from bottom */}
+      {/* In front of clouds (z > 4) so navy isn't washed by translucent cloud layers */}
       <Text
         ref={hindiRef}
         font="/fonts/YatraOne-Regular.ttf"
         fontSize={1.65}
         letterSpacing={0.02}
-        position={[0, RISE_FROM_Y + 0.9, 2]}
+        position={[0, RISE_FROM_Y + 0.9, 7]}
         color="#243B53"
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
+        depthTest={false}
+        renderOrder={10}
       >
         नमस्ते
       </Text>
@@ -237,11 +239,13 @@ export default function CloudScene() {
         font="/fonts/CormorantGaramond-Bold.ttf"
         fontSize={1.05}
         letterSpacing={0.08}
-        position={[0, RISE_FROM_Y, 2]}
+        position={[0, RISE_FROM_Y, 7]}
         color="#243B53"
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
+        depthTest={false}
+        renderOrder={10}
       >
         Namaste
       </Text>
