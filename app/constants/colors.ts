@@ -8,4 +8,5 @@ export const COLORS = {
   greenery: '#7BA086',
   raincoatYellow: '#D4A017',
   earthWarm: '#8B7355',
+  deepSlateNavy: '#243B53',
 } as const;

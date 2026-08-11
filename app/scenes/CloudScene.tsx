@@ -224,7 +224,7 @@ export default function CloudScene() {
         fontSize={1.65}
         letterSpacing={0.02}
         position={[0, RISE_FROM_Y + 0.9, 2]}
-        color="#ffffff"
+        color="#243B53"
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
@@ -238,7 +238,7 @@ export default function CloudScene() {
         fontSize={1.05}
         letterSpacing={0.08}
         position={[0, RISE_FROM_Y, 2]}
-        color="#ffffff"
+        color="#243B53"
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
