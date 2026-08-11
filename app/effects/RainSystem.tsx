@@ -16,7 +16,7 @@ export default function RainSystem() {
     for (let i = 0; i < COUNT; i++) {
       positions[i * 3] = (Math.random() - 0.5) * 40;
       positions[i * 3 + 1] = Math.random() * 25;
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 30 + 5;
       speeds[i] = 0.15 + Math.random() * 0.25;
     }
     return { positions, speeds };
@@ -44,7 +44,7 @@ export default function RainSystem() {
       if (positions[i * 3 + 1] < -2) {
         positions[i * 3 + 1] = 20 + Math.random() * 5;
         positions[i * 3] = (Math.random() - 0.5) * 40;
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 30 + 5;
       }
 
       dummy.position.set(positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2]);
@@ -57,8 +57,8 @@ export default function RainSystem() {
 
   return (
     <instancedMesh ref={rainRef} args={[undefined, undefined, COUNT]} frustumCulled={false}>
-      <boxGeometry args={[0.01, 0.2, 0.01]} />
-      <meshBasicMaterial color="#A3C1D4" transparent opacity={0.4} />
+      <boxGeometry args={[0.015, 0.3, 0.015]} />
+      <meshBasicMaterial color="#C8DDE8" transparent opacity={0.6} depthWrite={false} />
     </instancedMesh>
   );
 }

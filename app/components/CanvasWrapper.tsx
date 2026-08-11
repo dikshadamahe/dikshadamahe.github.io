@@ -17,7 +17,7 @@ export default function CanvasWrapper() {
         <color attach="background" args={['#B4C7D9']} />
         <Suspense fallback={null}>
           <ambientLight intensity={0.6} />
-          <fog attach="fog" args={['#B4C7D9', 10, 60]} />
+          <fog attach="fog" args={['#B4C7D9', 15, 80]} />
           <ScrollControls pages={5} damping={0.3}>
             <MonsoonWorld />
           </ScrollControls>
