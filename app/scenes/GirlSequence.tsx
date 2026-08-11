@@ -30,7 +30,7 @@ export default function GirlSequence() {
   }, [walkTex, bendTex, holdTex, smileTex, runTex, boatTex]);
 
   const target = useRef({
-    x: 12,
+    x: -12,
     y: GIRL_Y,
     z: GIRL_Z,
     scale: 1,
@@ -40,17 +40,17 @@ export default function GirlSequence() {
   });
 
   useFrame((_, delta) => {
-    const walkP = data.range(0.45, 0.04);
-    const bendP = data.range(0.49, 0.03);
-    const holdP = data.range(0.52, 0.03);
-    const smileP = data.range(0.55, 0.03);
-    const runP = data.range(0.58, 0.08);
+    const walkP = data.range(0.40, 0.08); // 40-48% — walks in slowly
+    const bendP = data.range(0.48, 0.05); // 48-53% — bends to pick up boat
+    const holdP = data.range(0.53, 0.04); // 53-57% — stands with boat
+    const smileP = data.range(0.57, 0.04); // 57-61% — faces camera, smiles
+    const runP = data.range(0.61, 0.09); // 61-70% — runs away into distance
 
     const t = target.current;
     let showGirl = walkP > 0 || bendP > 0 || holdP > 0 || smileP > 0 || runP > 0;
 
     if (walkP > 0 && walkP < 1) {
-      t.x = THREE.MathUtils.lerp(12, 5, walkP);
+      t.x = THREE.MathUtils.lerp(-12, 4, walkP);
       t.y = GIRL_Y;
       t.z = GIRL_Z;
       t.scale = 1;
@@ -90,8 +90,8 @@ export default function GirlSequence() {
       t.boatVisible = false;
       t.texture = runTex;
       if (t.scale < 0.15) showGirl = false;
-    } else if (data.offset < 0.45) {
-      t.x = 12;
+    } else if (data.offset < 0.40) {
+      t.x = -12;
       t.y = GIRL_Y;
       t.z = GIRL_Z;
       t.scale = 1;
@@ -105,10 +105,10 @@ export default function GirlSequence() {
       showGirl = false;
     }
 
-    // Boat visible from walk through bend (scroll past 0.45, before hold)
+    // Boat visible from walk through bend (scroll past 0.40, before hold)
     if (boatRef.current) {
       const boatShouldShow =
-        data.offset >= 0.45 && holdP <= 0 && smileP <= 0 && runP <= 0 && t.boatVisible;
+        data.offset >= 0.40 && holdP <= 0 && smileP <= 0 && runP <= 0 && t.boatVisible;
       boatRef.current.visible = boatShouldShow;
     }
 
@@ -175,7 +175,7 @@ export default function GirlSequence() {
       </mesh>
 
       {/* Girl sprite */}
-      <mesh ref={girlRef} position={[12, GIRL_Y, GIRL_Z]} visible={false}>
+      <mesh ref={girlRef} position={[-12, GIRL_Y, GIRL_Z]} visible={false}>
         <planeGeometry args={[2, 2.5]} />
         <meshBasicMaterial
           ref={girlMatRef}

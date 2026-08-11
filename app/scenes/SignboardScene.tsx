@@ -101,13 +101,14 @@ function DirectionalSign({
         handleOut();
       }}
     >
-      <mesh>
+      <mesh renderOrder={2}>
         <planeGeometry args={size} />
         <meshBasicMaterial
           ref={matRef}
           map={map}
           transparent
           alphaTest={0.2}
+          depthTest={false}
           depthWrite={false}
           side={THREE.DoubleSide}
           toneMapped={false}
@@ -142,7 +143,7 @@ export default function SignboardScene() {
   useFrame((state, delta) => {
     if (!rootRef.current || !boardRef.current) return;
 
-    const reveal = data.range(0.65, 0.05);
+    const reveal = data.range(0.70, 0.05);
     const show = reveal > 0;
     rootRef.current.visible = show;
 
@@ -174,7 +175,7 @@ export default function SignboardScene() {
     <group ref={rootRef} position={[0.15, 0, -11]} visible={false}>
       <group ref={boardRef}>
         {/* Tall post planted on the road */}
-        <mesh position={[0, 2.05, 0]} renderOrder={1}>
+        <mesh position={[0, 2.05, 0]} renderOrder={0}>
           <planeGeometry args={[0.95, 4.7]} />
           <meshBasicMaterial
             ref={postMatRef}
@@ -189,10 +190,10 @@ export default function SignboardScene() {
         </mesh>
 
         {/* Top — Work & Education → */}
-        <group renderOrder={2}>
+        <group>
           <DirectionalSign
             map={workTex}
-            position={[1.35, 3.45, 0.05]}
+            position={[0.55, 3.35, 0.12]}
             size={[4.0, 1.15]}
             road="work"
             tiltSign={1}
@@ -201,10 +202,10 @@ export default function SignboardScene() {
         </group>
 
         {/* Middle — ← Projects */}
-        <group renderOrder={2}>
+        <group>
           <DirectionalSign
             map={projectsTex}
-            position={[-1.15, 2.35, 0.08]}
+            position={[-0.4, 2.35, 0.14]}
             size={[3.6, 1.1]}
             road="projects"
             tiltSign={-1}
@@ -213,10 +214,10 @@ export default function SignboardScene() {
         </group>
 
         {/* Bottom — Publications → */}
-        <group renderOrder={2}>
+        <group>
           <DirectionalSign
             map={publicationsTex}
-            position={[1.25, 1.25, 0.06]}
+            position={[0.5, 1.35, 0.13]}
             size={[3.8, 1.15]}
             road="publications"
             tiltSign={1}
