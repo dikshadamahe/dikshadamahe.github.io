@@ -1,9 +1,14 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Cloud, Clouds, Text, useScroll } from '@react-three/drei';
+import gsap from 'gsap';
 import * as THREE from 'three';
+
+const HINDI_REST_Y = 10.35;
+const ENGLISH_REST_Y = 9.25;
+const RISE_FROM_Y = 1.5;
 
 export default function CloudScene() {
   const foregroundRef = useRef<THREE.Group>(null);
@@ -13,10 +18,25 @@ export default function CloudScene() {
   const hindiRef = useRef<any>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const englishRef = useRef<any>(null);
-  // Visible on open — damp toward scroll-driven target
   const opacityRef = useRef(1);
   const textYOffsetRef = useRef(0);
+  const riseRef = useRef({ t: 0 });
   const data = useScroll();
+
+  // Rise gradually from bottom — same idea as clevir.li title entrance
+  useEffect(() => {
+    const rise = riseRef.current;
+    rise.t = 0;
+    const tween = gsap.to(rise, {
+      t: 1,
+      duration: 3,
+      ease: 'power2.out',
+      delay: 0.35,
+    });
+    return () => {
+      tween.kill();
+    };
+  }, []);
 
   useFrame((state, delta) => {
     const px = state.pointer.x;
@@ -65,7 +85,7 @@ export default function CloudScene() {
       );
     }
 
-    // Hold full opacity until ~15%, then fade out 15–25% (visible on open)
+    // Hold full opacity until ~15%, then fade out 15–25%
     const fadeOut = data.range(0.15, 0.1);
     const targetOpacity = 1 - fadeOut;
     const targetYOffset = fadeOut * 1.5;
@@ -75,14 +95,17 @@ export default function CloudScene() {
 
     const opacity = opacityRef.current;
     const yOff = textYOffsetRef.current;
+    const t = riseRef.current.t;
 
     if (hindiRef.current) {
       hindiRef.current.fillOpacity = opacity;
-      hindiRef.current.position.y = 10.4 + yOff;
+      hindiRef.current.position.y =
+        THREE.MathUtils.lerp(RISE_FROM_Y + 0.9, HINDI_REST_Y, t) + yOff;
     }
     if (englishRef.current) {
       englishRef.current.fillOpacity = opacity;
-      englishRef.current.position.y = 8.2 + yOff;
+      englishRef.current.position.y =
+        THREE.MathUtils.lerp(RISE_FROM_Y, ENGLISH_REST_Y, t) + yOff;
     }
   });
 
@@ -194,14 +217,14 @@ export default function CloudScene() {
         </group>
       </Clouds>
 
-      {/* Bold, prominent greeting — visible on open */}
+      {/* Sized like clevir.li title (~1.2); rises from bottom */}
       <Text
         ref={hindiRef}
         font="/fonts/YatraOne-Regular.ttf"
-        fontSize={3.5}
+        fontSize={1.65}
         letterSpacing={0.02}
-        position={[0, 10.6, 3]}
-        color="#1A2330"
+        position={[0, RISE_FROM_Y + 0.9, 2]}
+        color="#ffffff"
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
@@ -212,10 +235,10 @@ export default function CloudScene() {
       <Text
         ref={englishRef}
         font="/fonts/CormorantGaramond-Bold.ttf"
-        fontSize={1.85}
-        letterSpacing={0.18}
-        position={[0, 8.15, 3]}
-        color="#1A2330"
+        fontSize={1.05}
+        letterSpacing={0.08}
+        position={[0, RISE_FROM_Y, 2]}
+        color="#ffffff"
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
