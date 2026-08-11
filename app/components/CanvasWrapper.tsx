@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ScrollControls, Preload } from '@react-three/drei';
 import MonsoonWorld from '@scenes/MonsoonWorld';
+import BackButton from '@components/BackButton';
 
 export default function CanvasWrapper() {
   return (
@@ -24,6 +25,7 @@ export default function CanvasWrapper() {
           <Preload all />
         </Suspense>
       </Canvas>
+      <BackButton />
     </div>
   );
 }
