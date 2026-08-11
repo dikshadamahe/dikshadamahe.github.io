@@ -198,16 +198,13 @@ export default function CloudScene() {
       <Text
         ref={hindiRef}
         font="/fonts/YatraOne-Regular.ttf"
-        fontSize={3.4}
-        letterSpacing={0.04}
-        position={[0, 10.5, 2]}
-        color="#ffffff"
+        fontSize={3.5}
+        letterSpacing={0.02}
+        position={[0, 10.6, 3]}
+        color="#1A2330"
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
-        outlineWidth={0.06}
-        outlineColor="#3A4A5A"
-        outlineOpacity={0.55}
       >
         नमस्ते
       </Text>
@@ -215,16 +212,13 @@ export default function CloudScene() {
       <Text
         ref={englishRef}
         font="/fonts/CormorantGaramond-Bold.ttf"
-        fontSize={1.75}
-        letterSpacing={0.14}
-        position={[0, 8.15, 2]}
-        color="#ffffff"
+        fontSize={1.85}
+        letterSpacing={0.18}
+        position={[0, 8.15, 3]}
+        color="#1A2330"
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
-        outlineWidth={0.035}
-        outlineColor="#3A4A5A"
-        outlineOpacity={0.5}
       >
         Namaste
       </Text>
