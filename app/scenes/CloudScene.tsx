@@ -228,8 +228,6 @@ export default function CloudScene() {
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
-        depthTest={false}
-        renderOrder={10}
       >
         नमस्ते
       </Text>
@@ -244,8 +242,6 @@ export default function CloudScene() {
         anchorX="center"
         anchorY="middle"
         fillOpacity={1}
-        depthTest={false}
-        renderOrder={10}
       >
         Namaste
       </Text>
