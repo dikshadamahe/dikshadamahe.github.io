@@ -102,10 +102,14 @@ a {
   backface-visibility: hidden;
 }
 
+/* Capped well inside the board: the -2deg tilt swings the corners outwards,
+   so the frame needs margin to spare or it crosses the cover edge. */
 .cover-content {
   text-align: center;
   border: 4px solid #fff;
-  padding: 4rem;
+  padding: 2.8rem 2.4rem;
+  max-width: 80%;
+  box-sizing: border-box;
   border-radius: 2px 255px 3px 225px / 255px 5px 225px 3px;
   transform: rotate(-2deg);
   background: rgba(0, 0, 0, 0.2);
@@ -138,7 +142,7 @@ a {
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.4rem 1rem;
-  max-width: 22rem;
+  max-width: 100%;
 }
 
 .cover-contents li {
@@ -1226,6 +1230,13 @@ a {
 .cert-item:hover {
   transform: rotate(-1deg) translateX(3px);
   box-shadow: 6px 7px 0px rgba(0, 0, 0, 0.85);
+}
+
+/* Nothing to open, so it should not behave like a link. */
+.cert-item.is-static,
+.cert-item.is-static:hover {
+  transform: none;
+  box-shadow: 4px 5px 0px rgba(0, 0, 0, 0.85);
 }
 
 /* Year punched into the page like a date stamp. */

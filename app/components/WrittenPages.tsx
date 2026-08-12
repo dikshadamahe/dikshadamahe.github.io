@@ -245,17 +245,15 @@ export function CertificatesRight() {
     <>
       <h1 className="page-title">CERTIFICATES</h1>
       <p className="section-lede" style={{ textAlign: 'center' }}>
-        Every card opens its credential.
+        Most cards open their credential.
       </p>
       <ul className="cert-list">
-        {CERTIFICATIONS.map((entry) => (
-          <li key={entry.id}>
-            <a
-              className="cert-item"
-              href={entry.url ?? LINKEDIN_CERTIFICATES}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+        {CERTIFICATIONS.map((entry) => {
+          const href =
+            entry.url ?? (entry.onLinkedIn === false ? null : LINKEDIN_CERTIFICATES);
+
+          const body = (
+            <>
               <span className="cert-stamp">{entry.date.split(' ')[1]}</span>
               <span className="cert-body">
                 <span className="cert-title">{entry.title}</span>
@@ -263,10 +261,27 @@ export function CertificatesRight() {
                   {entry.issuer} &middot; {entry.date}
                 </span>
               </span>
-              <span className="cert-go">&#8599;</span>
-            </a>
-          </li>
-        ))}
+              {href && <span className="cert-go">&#8599;</span>}
+            </>
+          );
+
+          return (
+            <li key={entry.id}>
+              {href ? (
+                <a
+                  className="cert-item"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {body}
+                </a>
+              ) : (
+                <div className="cert-item is-static">{body}</div>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </>
   );

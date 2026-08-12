@@ -54,6 +54,8 @@ export interface Certification {
   date: string;
   /** Credential page. Falls back to the LinkedIn certifications list. */
   url?: string;
+  /** Set false when the certificate is absent from LinkedIn, so no fallback. */
+  onLinkedIn?: boolean;
 }
 
 export type PageKind = 'work' | 'publications' | 'certificates' | 'contact';

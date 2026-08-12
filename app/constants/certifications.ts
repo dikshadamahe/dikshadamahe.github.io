@@ -13,6 +13,14 @@ export const LINKEDIN_CERTIFICATES =
  */
 export const CERTIFICATIONS: Certification[] = [
   {
+    // NPTEL Elite certifications; not mirrored on LinkedIn, so no credential URL.
+    id: 'nptel-iot',
+    title: 'Introduction to Internet of Things',
+    issuer: 'NPTEL, IIT Kharagpur',
+    date: 'May 2026',
+    onLinkedIn: false,
+  },
+  {
     id: 'computer-vision',
     title: 'Computer Vision',
     issuer: 'Vityarthi',
@@ -50,6 +58,13 @@ export const CERTIFICATIONS: Certification[] = [
   },
   { id: 'javascript', title: 'Mastery in JavaScript', issuer: 'Lernx', date: 'Aug 2025' },
   {
+    id: 'nptel-cloud',
+    title: 'Cloud Computing',
+    issuer: 'NPTEL, IIT Kharagpur',
+    date: 'May 2025',
+    onLinkedIn: false,
+  },
+  {
     // As above: LinkedIn has only the Bosscoder homepage on file.
     id: 'advanced-sql',
     title: 'Advanced SQL for Technical Interviews',
@@ -75,6 +90,7 @@ export const CERTIFICATIONS: Certification[] = [
     title: 'Fundamentals of AI and ML',
     issuer: 'Vityarthi',
     date: 'Jan 2024',
+    onLinkedIn: false,
   },
   {
     id: 'python-essentials',

@@ -7,11 +7,11 @@ export const PROJECTS: Project[] = [
     date: 'Jul 2026',
     category: 'web',
     description:
-      'A minimalist Android streaming aggregator that ships real builds. TMDB metadata, a self-hosted resolver, and ExoPlayer playback.',
+      'A minimalist Flutter streaming aggregator for Android that ships real builds. TMDB metadata, a self-hosted resolver, and ExoPlayer playback.',
     detail:
-      'Veil pulls metadata from TMDB, resolves sources through a self-hosted cinepro-org/core (OMSS) backend, and plays through ExoPlayer, all behind a deliberately plain interface. It is the project of mine that has shipped the most: thirty-odd tagged releases from the first beta through to v3.0.8, each with a downloadable APK.',
+      'A cross-platform Flutter app that pulls metadata from TMDB, resolves sources through a self-hosted cinepro-org/core (OMSS) backend, and plays through ExoPlayer, all behind a deliberately plain interface. It is the project of mine that has shipped the most: thirty-odd tagged releases from the first beta through to v3.0.8, each with a downloadable APK.',
     highlight: '30+ tagged releases, currently on v3.0.8',
-    tech: ['TypeScript', 'Android', 'ExoPlayer', 'TMDB API'],
+    tech: ['Flutter', 'Dart', 'ExoPlayer', 'TMDB API', 'TypeScript'],
     github: 'https://github.com/dikshadamahe/veil-android',
     live: null,
     release: 'https://github.com/dikshadamahe/veil-android/releases/latest',
