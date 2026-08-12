@@ -239,7 +239,7 @@ export function CertificatesRight() {
     <>
       <h1 className="page-title">CERTIFICATES</h1>
       <p className="section-lede" style={{ textAlign: 'center' }}>
-        Every card opens the credential on LinkedIn.
+        Every card opens its credential.
       </p>
       <ul className="cert-list">
         {CERTIFICATIONS.map((entry) => (
