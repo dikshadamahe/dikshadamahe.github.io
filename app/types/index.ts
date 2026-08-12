@@ -9,6 +9,8 @@ export interface Project {
   tech: string[];
   github: string;
   live: string | null;
+  /** Downloadable build, for projects that ship a release rather than a site. */
+  release?: string;
   /** Path under `public/` once a real screenshot exists. */
   screenshot?: string;
   /** Longer write-up shown on the project's own page. */

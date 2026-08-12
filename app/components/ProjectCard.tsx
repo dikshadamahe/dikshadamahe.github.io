@@ -62,6 +62,15 @@ export default function ProjectCard({ project }: { project: Project }) {
           >
             Live demo &#8599;
           </a>
+        ) : project.release ? (
+          <a
+            className="card-action is-live"
+            href={project.release}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Latest release &#8599;
+          </a>
         ) : (
           <span className="card-action is-muted">No live demo</span>
         )}

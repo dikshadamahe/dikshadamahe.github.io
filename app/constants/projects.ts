@@ -2,6 +2,21 @@ import { Project } from '@app-types';
 
 export const PROJECTS: Project[] = [
   {
+    id: 'veil',
+    title: 'Veil Android',
+    date: 'Jul 2026',
+    category: 'web',
+    description:
+      'A minimalist Android streaming aggregator that ships real builds. TMDB metadata, a self-hosted resolver, and ExoPlayer playback.',
+    detail:
+      'Veil pulls metadata from TMDB, resolves sources through a self-hosted cinepro-org/core (OMSS) backend, and plays through ExoPlayer, all behind a deliberately plain interface. It is the project of mine that has shipped the most: thirty-odd tagged releases from the first beta through to v3.0.8, each with a downloadable APK.',
+    highlight: '30+ tagged releases, currently on v3.0.8',
+    tech: ['TypeScript', 'Android', 'ExoPlayer', 'TMDB API'],
+    github: 'https://github.com/dikshadamahe/veil-android',
+    live: null,
+    release: 'https://github.com/dikshadamahe/veil-android/releases/latest',
+  },
+  {
     id: 'recovai',
     title: 'RecovAI',
     date: 'May 2026',
@@ -14,20 +29,6 @@ export const PROJECTS: Project[] = [
     tech: ['Python', 'XGBoost', 'SHAP', 'FastAPI', 'SciPy', 'SQLite'],
     github: 'https://github.com/dikshadamahe/RecovAI',
     live: 'https://hcl-recovai.onrender.com/',
-  },
-  {
-    id: 'quant-factor',
-    title: 'QuantFactor',
-    date: 'Aug 2026',
-    category: 'research',
-    description:
-      'Factor research and backtesting engine that refuses to lie to you: point-in-time data, real transaction costs, and multiple-testing corrections by default.',
-    detail:
-      'Most open-source backtesters leak the future. This one enforces a t+1 execution lag so a signal computed on day t can only trade on day t+1, models commission, spread, slippage and volume-weighted market impact, and applies Bonferroni and Benjamini-Hochberg corrections so a factor that only looks good because you tried forty of them gets caught. Walk-forward out-of-sample windows and market-regime decomposition round it out.',
-    highlight: 'Point-in-time correctness and cost modelling enforced by default',
-    tech: ['Python', 'pandas', 'NumPy', 'SciPy', 'Matplotlib'],
-    github: 'https://github.com/dikshadamahe/quant-factor-backtest',
-    live: null,
   },
   {
     id: 'fossee',
@@ -55,6 +56,20 @@ export const PROJECTS: Project[] = [
     highlight: 'Best model: AdaBoost at 0.9679 ROC-AUC',
     tech: ['Python', 'scikit-learn', 'XGBoost', 'SHAP', 'Matplotlib'],
     github: 'https://github.com/dikshadamahe/NAFLD-Model',
+    live: null,
+  },
+  {
+    id: 'quant-factor',
+    title: 'QuantFactor',
+    date: 'Aug 2026',
+    category: 'research',
+    description:
+      'Factor research and backtesting engine that refuses to lie to you: point-in-time data, real transaction costs, and multiple-testing corrections by default.',
+    detail:
+      'Most open-source backtesters leak the future. This one enforces a t+1 execution lag so a signal computed on day t can only trade on day t+1, models commission, spread, slippage and volume-weighted market impact, and applies Bonferroni and Benjamini-Hochberg corrections so a factor that only looks good because you tried forty of them gets caught. Walk-forward out-of-sample windows and market-regime decomposition round it out.',
+    highlight: 'Point-in-time correctness and cost modelling enforced by default',
+    tech: ['Python', 'pandas', 'NumPy', 'SciPy', 'Matplotlib'],
+    github: 'https://github.com/dikshadamahe/quant-factor-backtest',
     live: null,
   },
   {
@@ -126,18 +141,5 @@ export const PROJECTS: Project[] = [
     tech: ['HTML', 'CSS', 'JavaScript', 'Firebase'],
     github: 'https://github.com/dikshadamahe/Hostel-Bites',
     live: 'https://hostel-bites-1.web.app',
-  },
-  {
-    id: 'veil',
-    title: 'Veil Android',
-    date: '2026',
-    category: 'web',
-    description: 'Flutter streaming client built as a collaboration.',
-    detail:
-      'A Flutter front-end for a streaming backend, covering playback, library, and search. My first real look at how different mobile layout constraints are from the web.',
-    highlight: 'Flutter and Dart, collaborative build',
-    tech: ['Flutter', 'Dart', 'TypeScript'],
-    github: 'https://github.com/dikshadamahe/veil-android',
-    live: null,
   },
 ];

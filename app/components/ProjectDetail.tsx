@@ -66,7 +66,13 @@ export function ProjectDetailRight({ project }: { project: Project }) {
           </tr>
           <tr>
             <th scope="row">Status</th>
-            <td>{project.live ? 'Deployed and running' : 'Source only'}</td>
+            <td>
+              {project.live
+                ? 'Deployed and running'
+                : project.release
+                  ? 'Shipping tagged releases'
+                  : 'Source only'}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -89,6 +95,17 @@ export function ProjectDetailRight({ project }: { project: Project }) {
             style={{ background: '#bbf7d0', transform: 'rotate(-2deg)' }}
           >
             Open it live
+          </a>
+        )}
+        {!project.live && project.release && (
+          <a
+            className="sponsor-btn"
+            href={project.release}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ background: '#bbf7d0', transform: 'rotate(-2deg)' }}
+          >
+            Download the latest release
           </a>
         )}
       </div>
