@@ -1,11 +1,13 @@
-'use client';
+import BookScene from '@components/BookScene';
+import MobileBanner from '@components/MobileBanner';
+import SquiggleFilters from '@components/SquiggleFilters';
 
-import CanvasWrapper from '@components/CanvasWrapper';
-
-export default function Home() {
+export default function Page() {
   return (
-    <div className="h-[100dvh] w-full overflow-hidden">
-      <CanvasWrapper />
-    </div>
+    <>
+      <BookScene />
+      <SquiggleFilters />
+      <MobileBanner />
+    </>
   );
 }

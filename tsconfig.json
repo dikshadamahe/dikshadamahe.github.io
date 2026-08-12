@@ -20,10 +20,8 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@scenes/*": ["./app/scenes/*"],
       "@components/*": ["./app/components/*"],
-      "@effects/*": ["./app/effects/*"],
-      "@stores": ["./app/stores/useAppStore"],
+      "@stores": ["./app/stores/useNotebookStore"],
       "@constants/*": ["./app/constants/*"],
       "@app-types": ["./app/types/index"]
     }

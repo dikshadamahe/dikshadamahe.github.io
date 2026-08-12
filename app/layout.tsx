@@ -1,27 +1,29 @@
 import type { Metadata, Viewport } from 'next';
-import localFont from 'next/font/local';
+import { Architects_Daughter, Inter } from 'next/font/google';
 import './globals.css';
 
-const yatraOne = localFont({
-  src: '../public/fonts/YatraOne-Regular.ttf',
-  variable: '--font-yatra-one',
+const architects = Architects_Daughter({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-architects',
   display: 'swap',
 });
 
-const cormorantGaramond = localFont({
-  src: '../public/fonts/CormorantGaramond-Bold.ttf',
-  variable: '--font-cormorant',
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-inter',
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'Diksha Damahe',
+  title: 'Diksha Damahe — Portfolio Vol. 1',
   description:
-    'AI/ML engineer and full-stack developer. Explore my work through an interactive monsoon world.',
+    'A sketchbook portfolio by Diksha Damahe. AI/ML engineer and full-stack developer.',
 };
 
 export const viewport: Viewport = {
-  themeColor: '#B4C7D9',
+  themeColor: '#f4f4f0',
 };
 
 export default function RootLayout({
@@ -30,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${yatraOne.variable} ${cormorantGaramond.variable}`}>
-      <body className={cormorantGaramond.className}>{children}</body>
+    <html lang="en" className={`${architects.variable} ${inter.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

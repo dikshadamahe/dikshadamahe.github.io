@@ -1,11 +1,26 @@
+export type CategoryId = 'web' | 'ai' | 'research';
+
 export interface Project {
   id: string;
   title: string;
   date: string;
   description: string;
+  category: CategoryId;
   tech: string[];
   github: string;
   live: string | null;
+  /** Path under `public/` once a real screenshot exists. */
+  screenshot?: string;
+  /** Longer write-up shown on the project's own page. */
+  detail?: string;
+  /** Headline number or claim worth calling out. */
+  highlight?: string;
+}
+
+export interface Category {
+  id: CategoryId;
+  label: string;
+  blurb: string;
 }
 
 export interface TimelineEntry {
@@ -28,5 +43,10 @@ export interface Publication {
   doi: string;
 }
 
-export type Season = 'monsoon' | 'summer';
-export type ActiveRoad = 'main' | 'projects' | 'work' | 'publications';
+export type PageKind = 'work' | 'publications' | 'skills' | 'contact';
+
+/** Which spread is on screen. */
+export type View =
+  | { kind: 'grid'; filter: CategoryId | 'all' }
+  | { kind: 'project'; id: string }
+  | { kind: 'page'; page: PageKind };
