@@ -24,11 +24,14 @@ export interface TopLink {
   /** Absent for the internal contact page. */
   url?: string;
   view?: View;
+  /** Saves the file rather than opening it in a tab. */
+  download?: boolean;
 }
 
 /** Ways to reach Diksha sit along the top edge. */
 export const TOP_LINKS: TopLink[] = [
   { label: 'Contact', view: { kind: 'page', page: 'contact' } },
+  { label: 'R\u00e9sum\u00e9', url: '/Diksha-Damahe-Resume.pdf', download: true },
   { label: 'GitHub', url: 'https://github.com/dikshadamahe' },
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/dikshadamahe' },
   { label: 'ORCID', url: 'https://orcid.org/0009-0002-0499-2572' },

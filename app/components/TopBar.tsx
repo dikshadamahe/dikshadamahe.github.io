@@ -39,12 +39,13 @@ export default function TopBar() {
           link.url ? (
             <a
               key={link.label}
-              className="bookmark"
+              className={`bookmark${link.download ? ' is-download' : ''}`}
               href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...(link.download
+                ? { download: '' }
+                : { target: '_blank', rel: 'noopener noreferrer' })}
             >
-              {link.label} &#8599;
+              {link.label} {link.download ? <>&#8595;</> : <>&#8599;</>}
             </a>
           ) : (
             <button

@@ -380,6 +380,16 @@ a {
   font-weight: bold;
 }
 
+/* The one tab that hands you a file rather than a page. */
+.bookmark.is-download {
+  background: #bbf7d0;
+  font-weight: bold;
+}
+
+.bookmark.is-download:hover {
+  background: #6ee7a8;
+}
+
 /* Contact and the outbound links sit along the top edge. */
 .bookmarks-container.links-mode {
   left: auto;
