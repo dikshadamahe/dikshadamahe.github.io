@@ -90,7 +90,8 @@ export function PublicationsLeft() {
       <div className="sketch-note on-dark">
         <p className="section-lede" style={{ margin: 0 }}>
           One paper so far, on phishing detection, presented at IEEE SCEECS 2026 in
-          Bhopal. Writing it taught me more about honest evaluation than any course did.
+          Bhopal and indexed in Scopus. Writing it taught me more about honest
+          evaluation than any course did.
         </p>
       </div>
 
@@ -102,6 +103,10 @@ export function PublicationsLeft() {
         <div>
           <p className="stat-value">IEEE</p>
           <p className="stat-label">Venue</p>
+        </div>
+        <div>
+          <p className="stat-value">Scopus</p>
+          <p className="stat-label">Indexed</p>
         </div>
       </div>
     </div>
@@ -129,7 +134,8 @@ export function PublicationsRight() {
               <tr>
                 <th scope="row">Venue</th>
                 <td>
-                  {paper.venue}, {paper.location}
+                  {paper.venue}
+                  {paper.indexing && ` (${paper.indexing})`}, {paper.location}
                 </td>
               </tr>
               <tr>

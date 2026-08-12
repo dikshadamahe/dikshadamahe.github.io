@@ -39,6 +39,8 @@ export interface Publication {
   title: string;
   authors: string;
   venue: string;
+  /** Abstracting service, shown in brackets beside the venue. */
+  indexing?: string;
   year: string;
   location: string;
   highlight: string;

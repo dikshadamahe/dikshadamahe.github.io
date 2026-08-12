@@ -47,14 +47,14 @@ export const PROJECTS: Project[] = [
   {
     id: 'nafld',
     title: 'NAFLD Risk Pipeline',
-    date: 'Feb 2026',
+    date: 'Mar 2026',
     category: 'research',
     description:
-      'Research ML pipeline benchmarking 24 classifiers on NHANES clinical and lifestyle features for fatty liver risk screening.',
+      'Fatty liver risk screening from six merged NHANES datasets, with 24 classifiers benchmarked head to head under one leakage-safe protocol.',
     detail:
-      'A reproducible pipeline with stratified splits, leakage-safe SMOTE, and cross-validation, shipping ROC curves, feature importance, and SHAP explanations. Benchmarking 24 models sounds excessive until you see how differently they behave on imbalanced proxy labels.',
-    highlight: 'Best model: AdaBoost at 0.9679 ROC-AUC',
-    tech: ['Python', 'scikit-learn', 'XGBoost', 'SHAP', 'Matplotlib'],
+      'Six NHANES 2017-18 files are merged on participant ID into twelve clinical features, then put through a stratified 70/30 split with SMOTE applied to the training fold only, so nothing leaks backwards. Random Forest came out on top at 0.9644 test ROC-AUC, with 84% sensitivity and 91% specificity, which is the tradeoff that matters for screening. The result I find more interesting: a plain logistic regression on just age, glucose, waist circumference, BMI and sex reaches 0.9096, so most of the signal is in five numbers a clinic already has.',
+    highlight: 'Random Forest at 0.9644 ROC-AUC across 24 benchmarked classifiers',
+    tech: ['Python', 'scikit-learn', 'XGBoost', 'CatBoost', 'SHAP', 'NHANES'],
     github: 'https://github.com/dikshadamahe/NAFLD-Model',
     live: null,
   },
