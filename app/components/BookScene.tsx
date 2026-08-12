@@ -5,8 +5,8 @@ import gsap from 'gsap';
 import { useNotebookStore } from '@stores';
 import { resolveSpread } from '@components/views';
 import Cover from '@components/Cover';
-import Bookmarks from '@components/Bookmarks';
-import StickyNotes from '@components/StickyNotes';
+import TopBar from '@components/TopBar';
+import SideTabs from '@components/SideTabs';
 
 const MOBILE_QUERY = '(max-width: 900px)';
 const DURATION = 1.5;
@@ -79,9 +79,11 @@ export default function BookScene() {
   }, []);
 
   useLayoutEffect(() => {
-    // The cover is hidden below 900px, so the notebook has to start open there.
+    // Below 900px the cover and the about page are both hidden, so the book
+    // starts open on the project grid rather than a half-empty home spread.
     if (isMobile()) {
       openBook();
+      useNotebookStore.setState({ view: { kind: 'grid', filter: 'all' } });
       return;
     }
     if (!useNotebookStore.getState().isOpen) snapTo(false);
@@ -180,8 +182,8 @@ export default function BookScene() {
       <div className="book" ref={bookRef}>
         <Cover ref={coverRef} onOpen={handleOpen} />
 
-        <Bookmarks />
-        <StickyNotes ref={notesRef} />
+        <TopBar />
+        <SideTabs ref={notesRef} />
 
         <div
           ref={leftPageRef}

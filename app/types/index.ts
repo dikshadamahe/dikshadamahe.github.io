@@ -50,15 +50,11 @@ export interface Certification {
   date: string;
 }
 
-export type PageKind =
-  | 'work'
-  | 'publications'
-  | 'skills'
-  | 'certificates'
-  | 'contact';
+export type PageKind = 'work' | 'publications' | 'certificates' | 'contact';
 
 /** Which spread is on screen. */
 export type View =
+  | { kind: 'home' }
   | { kind: 'grid'; filter: CategoryId | 'all' }
   | { kind: 'project'; id: string }
   | { kind: 'page'; page: PageKind };

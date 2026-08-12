@@ -7,7 +7,7 @@ export const PROFILE = {
   education: 'BTech CSE (AI & ML), VIT Bhopal 2027',
   cgpa: '8.03',
   location: 'Bhopal, Madhya Pradesh, India',
-  email: 'dikshadamahe25@gmail.com',
+  email: 'dikshadamahe1@gmail.com',
   phone: '+91 97709 25370',
   avatar: '/textures/avatar.jpg',
   skills: {
@@ -40,7 +40,7 @@ export const SOCIALS = [
   {
     id: 'email',
     label: 'Email',
-    handle: 'dikshadamahe25@gmail.com',
-    url: 'mailto:dikshadamahe25@gmail.com',
+    handle: 'dikshadamahe1@gmail.com',
+    url: 'mailto:dikshadamahe1@gmail.com',
   },
 ] as const;

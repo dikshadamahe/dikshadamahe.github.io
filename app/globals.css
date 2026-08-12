@@ -61,9 +61,10 @@ a {
   height: 51.25rem;
   transform-style: preserve-3d;
   transform: translateX(-25%);
-  will-change: transform;
 }
 
+/* No `will-change` here on purpose: a permanent composited layer makes the
+   text on these 3D-transformed pages render soft. GSAP adds it per tween. */
 .cover,
 .page {
   position: absolute;
@@ -74,7 +75,6 @@ a {
   background: #fdfdfc;
   border: var(--stroke-width) solid var(--text-ink);
   box-sizing: border-box;
-  will-change: transform;
 }
 
 /* --- Cover --- */
@@ -84,7 +84,7 @@ a {
   z-index: 10;
   transform-origin: left center;
   background: #2a2a2a;
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
   color: #fff;
   border-radius: 4px 15px 15px 4px;
   display: flex;
@@ -107,8 +107,10 @@ a {
   border: 4px solid #fff;
   padding: 4rem;
   border-radius: 2px 255px 3px 225px / 255px 5px 225px 3px;
-  transform: rotate(-2deg) translateZ(2px);
+  transform: rotate(-2deg);
   background: rgba(0, 0, 0, 0.2);
+  /* Required: the cover keeps preserve-3d, so without this the content shows
+     through mirrored once the board has swung open. */
   backface-visibility: hidden;
 }
 
@@ -154,7 +156,7 @@ a {
 .base-left-page.is-cover-back,
 .page-face.back.is-cover-back {
   background: #2a2a2a;
-  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.25'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E");
   color: #fff;
 }
 
@@ -341,64 +343,29 @@ a {
   font-weight: bold;
 }
 
-.bookmarks-container.slider-mode {
-  left: 51%;
-  right: 3%;
-  width: auto;
+/* Contact and the outbound links sit along the top edge. */
+.bookmarks-container.links-mode {
+  left: auto;
+  right: 4%;
   display: flex;
   align-items: flex-end;
-  gap: 0.5rem;
-}
-
-.bookmarks-window {
-  flex-grow: 1;
-  overflow: hidden;
-  height: 4.2rem;
-  position: relative;
-}
-
-.bookmarks-track {
-  display: flex;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-  height: 100%;
-  width: 100%;
-}
-
-.bookmarks-page {
-  display: flex;
-  gap: 0.5rem;
-  min-width: 100%;
-  flex-shrink: 0;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.slider-arrow {
-  flex-shrink: 0;
-  padding: 0.5rem 0.8rem 1.875rem 0.8rem;
-  font-weight: bold;
-  user-select: none;
-}
-
-.slider-arrow:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  background: #e5e5e5;
-  transform: translateY(0.5rem) !important;
+  gap: 0.9375rem;
 }
 
 /* =========================================================================
    Sticky note tabs (right edge)
    ========================================================================= */
 
+/* Eight section tabs have to clear the height of the book, so they are a
+   little shorter than a single post-it would be. */
 .sticky-notes-container {
   position: absolute;
   left: 100%;
   right: auto;
-  top: 5rem;
+  top: 3.5rem;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.6rem;
   z-index: 2;
   opacity: 0;
   pointer-events: none;
@@ -407,8 +374,8 @@ a {
 
 .sticky-note-tab {
   display: block;
-  width: 1.2rem;
-  height: 5.5rem;
+  width: 1.4rem;
+  height: 5rem;
   border: var(--stroke-width) solid var(--text-ink);
   border-left: none;
   border-radius: 0 0.5rem 0.5rem 0;
@@ -422,7 +389,7 @@ a {
 
 .sticky-note-tab:hover,
 .sticky-note-tab.active {
-  width: 2.4rem;
+  width: 2.6rem;
   box-shadow: 4px 5px 0px rgba(0, 0, 0, 0.85);
 }
 
@@ -432,7 +399,7 @@ a {
   left: 50%;
   transform: translate(-50%, -50%) rotate(90deg);
   font-family: var(--font-sketch);
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: bold;
   color: var(--text-ink);
   white-space: nowrap;
@@ -595,6 +562,29 @@ a {
   color: rgba(17, 17, 17, 0.4);
 }
 
+.search-clear {
+  flex-shrink: 0;
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-left: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--text-ink);
+  color: #fef08a;
+  border: none;
+  border-radius: 50%;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.search-clear:hover {
+  transform: scale(1.15) rotate(90deg);
+}
+
 .sponsor-section {
   display: flex;
   flex-direction: column;
@@ -728,9 +718,92 @@ a {
   backdrop-filter: blur(2px);
 }
 
-.component-card:hover {
+.component-card:hover,
+.component-card:focus-within {
   transform: rotate(-1.5deg) scale(1.02) translateZ(0);
   box-shadow: 8px 10px 0px rgba(0, 0, 0, 0.85);
+}
+
+/* The tappable body of a card: everything above the action row. */
+.card-open {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.card-heading {
+  display: block;
+  font-family: var(--font-sketch);
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-desc {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--text-light-ink);
+  line-height: 1.5;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1.5rem 1.2rem 1.5rem;
+  background: white;
+}
+
+.card-action {
+  font-family: var(--font-sketch);
+  font-size: 1rem;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid var(--text-ink);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  background: #fff;
+  color: var(--text-ink);
+  cursor: pointer;
+  box-shadow: 2px 3px 0 var(--text-ink);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.card-action:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 4px 0 var(--text-ink);
+}
+
+.card-action.is-live {
+  background: #bbf7d0;
+}
+
+.card-action.is-details {
+  background: #fef08a;
+}
+
+/* No deployment to link to, so this one reads as a note rather than a button. */
+.card-action.is-muted {
+  border-style: dashed;
+  border-color: rgba(17, 17, 17, 0.3);
+  color: var(--text-light-ink);
+  box-shadow: none;
+  cursor: default;
+}
+
+.card-action.is-muted:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.skill-group {
+  font-family: var(--font-sketch);
+  font-size: 1.5rem;
+  margin: 0;
 }
 
 .component-card:hover::after {
@@ -793,23 +866,11 @@ a {
 }
 
 .card-info {
-  padding: 1.5rem;
+  display: block;
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
   background: white;
   background-image: linear-gradient(transparent 90%, rgba(0, 0, 0, 0.1) 90%);
   background-size: 100% 20px;
-}
-
-.card-info h2 {
-  font-family: var(--font-sketch);
-  margin: 0 0 0.5rem 0;
-  font-size: 1.5rem;
-}
-
-.card-info p {
-  margin: 0;
-  font-size: 0.95rem;
-  color: var(--text-light-ink);
-  line-height: 1.5;
 }
 
 .card-meta {

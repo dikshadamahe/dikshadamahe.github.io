@@ -19,34 +19,68 @@ export default function ProjectCard({ project }: { project: Project }) {
   const navigate = useNotebookStore((state) => state.navigate);
 
   return (
-    <button
-      type="button"
-      className="component-card"
-      onClick={() => navigate({ kind: 'project', id: project.id })}
-    >
-      <div className="card-preview">
-        {project.screenshot ? (
-          <Image src={project.screenshot} alt="" fill sizes="40vw" />
-        ) : (
-          <div className="preview-stack">
-            <span className="preview-monogram">{initials(project.title)}</span>
-            <span className="preview-kind">{getCategory(project.category).label}</span>
-          </div>
-        )}
-      </div>
-
-      <div className="card-info">
-        <span className="card-date">{project.date}</span>
-        <h2>{project.title}</h2>
-        <p>{project.description}</p>
-        <div className="card-meta">
-          {project.tech.slice(0, 4).map((item) => (
-            <span key={item} className="tech-chip">
-              {item}
+    <article className="component-card">
+      {/* The button covers the readable body; the links below are siblings so
+          they stay valid and keyboard reachable. */}
+      <button
+        type="button"
+        className="card-open"
+        onClick={() => navigate({ kind: 'project', id: project.id })}
+      >
+        <span className="card-preview">
+          {project.screenshot ? (
+            <Image src={project.screenshot} alt="" fill sizes="40vw" />
+          ) : (
+            <span className="preview-stack">
+              <span className="preview-monogram">{initials(project.title)}</span>
+              <span className="preview-kind">{getCategory(project.category).label}</span>
             </span>
-          ))}
-        </div>
+          )}
+        </span>
+
+        <span className="card-info">
+          <span className="card-date">{project.date}</span>
+          <span className="card-heading">{project.title}</span>
+          <span className="card-desc">{project.description}</span>
+          <span className="card-meta">
+            {project.tech.slice(0, 4).map((item) => (
+              <span key={item} className="tech-chip">
+                {item}
+              </span>
+            ))}
+          </span>
+        </span>
+      </button>
+
+      <div className="card-actions">
+        {project.live ? (
+          <a
+            className="card-action is-live"
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Live demo &#8599;
+          </a>
+        ) : (
+          <span className="card-action is-muted">No live demo</span>
+        )}
+        <a
+          className="card-action"
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Code &#8599;
+        </a>
+        <button
+          type="button"
+          className="card-action is-details"
+          onClick={() => navigate({ kind: 'project', id: project.id })}
+        >
+          Details
+        </button>
       </div>
-    </button>
+    </article>
   );
 }

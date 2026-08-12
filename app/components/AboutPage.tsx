@@ -7,6 +7,7 @@ import { useNotebookStore } from '@stores';
 export default function AboutPage() {
   const search = useNotebookStore((state) => state.search);
   const setSearch = useNotebookStore((state) => state.setSearch);
+  const clearSearch = useNotebookStore((state) => state.clearSearch);
   const navigate = useNotebookStore((state) => state.navigate);
 
   return (
@@ -40,7 +41,7 @@ export default function AboutPage() {
           notebook is full-stack products, research pipelines, and one IEEE paper.
           <br />
           <br />
-          Flip through the tabs, or search below. &#128640;
+          Use the coloured tabs down the right edge, or search below. &#128640;
         </p>
       </div>
 
@@ -50,10 +51,24 @@ export default function AboutPage() {
             type="text"
             value={search}
             onChange={(event) => setSearch(event.target.value)}
-            placeholder="Search sketches..."
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') clearSearch();
+            }}
+            placeholder="Search projects..."
             autoComplete="off"
             aria-label="Search projects"
           />
+          {search && (
+            <button
+              type="button"
+              className="search-clear"
+              onClick={clearSearch}
+              aria-label="Clear search"
+              title="Clear search"
+            >
+              &times;
+            </button>
+          )}
         </div>
 
         <div className="sponsor-section">

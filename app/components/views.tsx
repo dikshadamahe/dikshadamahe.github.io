@@ -12,7 +12,6 @@ import {
   ContactRight,
   PublicationsLeft,
   PublicationsRight,
-  SkillsLeft,
   SkillsRight,
   WorkLeft,
   WorkRight,
@@ -42,22 +41,56 @@ function Grid({ items }: { items: Project[] }) {
   );
 }
 
-function Empty({ note }: { note: string }) {
+function Blurb({ title, note }: { title: string; note: string }) {
   return (
-    <div className="empty-category-message">
-      <div className="empty-doodle">&#9999;&#65039;</div>
-      <h3>Nothing on this page</h3>
-      <p>{note}</p>
-    </div>
+    <>
+      <h1 className="page-title">{title}</h1>
+      <div className="sketch-note">
+        <p className="section-lede" style={{ margin: 0 }}>
+          {note}
+        </p>
+      </div>
+    </>
   );
 }
 
 export function resolveSpread(view: View, search: string): Spread {
   const term = search.trim().toLowerCase();
 
+  // A live search keeps the about page, and therefore the input, mounted on
+  // the left with results facing it. Any tab clears the query.
+  if (term) {
+    const results = PROJECTS.filter((project) => matches(project, term));
+    return {
+      left: <AboutPage />,
+      isLeftCover: true,
+      right: results.length ? (
+        <>
+          <h1 className="page-title">
+            {results.length} {results.length === 1 ? 'MATCH' : 'MATCHES'}
+          </h1>
+          <Grid items={results} />
+        </>
+      ) : (
+        <>
+          <h1 className="page-title">NO MATCHES</h1>
+          <div className="empty-category-message">
+            <div className="empty-doodle">&#128269;</div>
+            <h3>Nothing for &ldquo;{search.trim()}&rdquo;</h3>
+            <p>Try a tool name like React or XGBoost, or clear the note to start over.</p>
+          </div>
+        </>
+      ),
+    };
+  }
+
+  if (view.kind === 'home') {
+    return { left: <AboutPage />, right: <SkillsRight />, isLeftCover: true };
+  }
+
   if (view.kind === 'project') {
     const project = PROJECTS.find((entry) => entry.id === view.id);
-    if (!project) return resolveSpread({ kind: 'grid', filter: 'all' }, '');
+    if (!project) return resolveSpread({ kind: 'home' }, '');
     return {
       left: <ProjectDetailLeft project={project} />,
       right: <ProjectDetailRight project={project} />,
@@ -75,8 +108,6 @@ export function resolveSpread(view: View, search: string): Spread {
           right: <PublicationsRight />,
           isLeftCover: true,
         };
-      case 'skills':
-        return { left: <SkillsLeft />, right: <SkillsRight />, isLeftCover: true };
       case 'certificates':
         return {
           left: <CertificatesLeft />,
@@ -88,50 +119,59 @@ export function resolveSpread(view: View, search: string): Spread {
     }
   }
 
-  const pool =
+  const filtered =
     view.filter === 'all'
       ? PROJECTS
       : PROJECTS.filter((project) => project.category === view.filter);
-  const filtered = term ? pool.filter((project) => matches(project, term)) : pool;
 
-  // Home: the about page faces a single column of every project.
-  if (view.filter === 'all' && !term) {
-    return {
-      left: <AboutPage />,
-      right: (
-        <>
-          <h1 className="page-title">All Projects</h1>
-          <Grid items={filtered} />
-        </>
-      ),
-      isLeftCover: true,
-    };
-  }
+  const heading =
+    view.filter === 'all'
+      ? 'ALL PROJECTS'
+      : getCategory(view.filter).label.toUpperCase();
 
-  const leftTitle = term
-    ? `"${search.trim()}"`
-    : getCategory(view.filter === 'all' ? 'web' : view.filter).label.toUpperCase();
+  const blurb =
+    view.filter === 'all'
+      ? 'Everything in the notebook. Each card links straight to the code and, where there is one, the live site.'
+      : getCategory(view.filter).blurb;
 
   if (filtered.length === 0) {
     return {
-      left: <h1 className="page-title">{leftTitle}</h1>,
+      left: <Blurb title={heading} note={blurb} />,
       right: (
         <>
           <h1 className="page-title">PROJECTS</h1>
-          <Empty note="Try another category, or clear the search and start from Home." />
+          <div className="empty-category-message">
+            <div className="empty-doodle">&#9999;&#65039;</div>
+            <h3>Nothing here yet</h3>
+            <p>Try another tab from the rail on the right.</p>
+          </div>
         </>
       ),
       isLeftCover: false,
     };
   }
 
-  // Categories and searches split their results across the open spread.
+  // Splitting one or two cards across the spread would leave a page blank, so
+  // short lists get a written left page and keep every card on the right.
+  if (filtered.length <= 2) {
+    return {
+      left: <Blurb title={heading} note={blurb} />,
+      right: (
+        <>
+          <h1 className="page-title">PROJECTS</h1>
+          <Grid items={filtered} />
+        </>
+      ),
+      isLeftCover: false,
+    };
+  }
+
   const half = Math.ceil(filtered.length / 2);
 
   return {
     left: (
       <>
-        <h1 className="page-title">{leftTitle}</h1>
+        <h1 className="page-title">{heading}</h1>
         <Grid items={filtered.slice(0, half)} />
       </>
     ),

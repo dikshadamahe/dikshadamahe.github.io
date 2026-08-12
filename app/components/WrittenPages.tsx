@@ -155,49 +155,19 @@ export function PublicationsRight() {
 
 /* ------------------------------------------------------------- Skills --- */
 
-export function SkillsLeft() {
-  return (
-    <div className="dark-page">
-      <h2 className="brand-title">SKILLS</h2>
-      <p className="brand-subtitle">&lt;what I reach for /&gt;</p>
-
-      <div className="sketch-note on-dark">
-        <p className="section-lede" style={{ margin: 0 }}>
-          This is the honest list: things I have actually shipped with, not everything I
-          have ever opened a tutorial for.
-        </p>
-      </div>
-
-      <div className="stat-row">
-        <div>
-          <p className="stat-value">158</p>
-          <p className="stat-label">Credits earned</p>
-        </div>
-        <div>
-          <p className="stat-value">{CERTIFICATIONS.length}</p>
-          <p className="stat-label">Certificates</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
+/** The right half of the home spread. */
 export function SkillsRight() {
   return (
     <>
       <h1 className="page-title">TOOLKIT</h1>
+      <p className="section-lede" style={{ textAlign: 'center' }}>
+        The honest list: things I have shipped with, not everything I have opened a
+        tutorial for.
+      </p>
+
       {Object.entries(PROFILE.skills).map(([group, items]) => (
         <div className="sketch-note" key={group} style={{ marginBottom: '1.8rem' }}>
-          <h2 className="card-info" style={{ padding: 0, background: 'none' }}>
-            <span
-              style={{
-                fontFamily: 'var(--font-sketch)',
-                fontSize: '1.5rem',
-              }}
-            >
-              {group}
-            </span>
-          </h2>
+          <h2 className="skill-group">{group}</h2>
           <div className="card-meta" style={{ marginTop: '0.6rem' }}>
             {items.map((item) => (
               <span className="tech-chip" key={item}>
@@ -209,11 +179,10 @@ export function SkillsRight() {
       ))}
 
       <div className="sketch-note">
-        <h2 style={{ fontFamily: 'var(--font-sketch)', fontSize: '1.5rem', margin: 0 }}>
-          Studying
-        </h2>
+        <h2 className="skill-group">Studying</h2>
         <p className="section-lede" style={{ margin: '0.5rem 0 0 0' }}>
-          {PROFILE.education} &middot; CGPA {PROFILE.cgpa}
+          {PROFILE.education} &middot; CGPA {PROFILE.cgpa} &middot; 158 credits earned
+          &middot; {CERTIFICATIONS.length} certificates
         </p>
       </div>
     </>

@@ -3,7 +3,7 @@ import { View } from '@app-types';
 
 /** How deep a view sits in the notebook, which decides the turn direction. */
 function depth(view: View): number {
-  if (view.kind === 'grid') return view.filter === 'all' ? 0 : 1;
+  if (view.kind === 'home') return 0;
   if (view.kind === 'project') return 2;
   return 1;
 }
@@ -27,10 +27,11 @@ interface NotebookState {
   openBook: () => void;
   navigate: (next: View) => void;
   setSearch: (value: string) => void;
+  clearSearch: () => void;
   commit: () => void;
 }
 
-const HOME: View = { kind: 'grid', filter: 'all' };
+const HOME: View = { kind: 'home' };
 
 export const useNotebookStore = create<NotebookState>((set, get) => ({
   isOpen: false,
@@ -41,22 +42,23 @@ export const useNotebookStore = create<NotebookState>((set, get) => ({
 
   openBook: () => set({ isOpen: true }),
 
+  // Any deliberate navigation abandons the search, so a stray query can never
+  // strand the reader on a filtered spread.
   navigate: (next) => {
     const { view, pending } = get();
-    if (pending || sameView(view, next)) return;
-    set({ pending: next, direction: depth(next) >= depth(view) ? 1 : -1 });
-  },
-
-  // Typing filters the grid in place; flipping a sheet on every keystroke
-  // would be unusable.
-  setSearch: (value) => {
-    const { view } = get();
-    const onGrid = view.kind === 'grid';
+    if (pending || (sameView(view, next) && !get().search)) return;
     set({
-      search: value,
-      ...(onGrid ? {} : { view: HOME, pending: null }),
+      search: '',
+      pending: next,
+      direction: depth(next) >= depth(view) ? 1 : -1,
     });
   },
+
+  // Typing only swaps the facing page, so the input never unmounts mid-word
+  // and no sheet turns on every keystroke.
+  setSearch: (value) => set({ search: value }),
+
+  clearSearch: () => set({ search: '' }),
 
   commit: () => {
     const { pending } = get();
