@@ -6,6 +6,8 @@ import AboutPage from '@components/AboutPage';
 import ProjectCard from '@components/ProjectCard';
 import { ProjectDetailLeft, ProjectDetailRight } from '@components/ProjectDetail';
 import {
+  CertificatesLeft,
+  CertificatesRight,
   ContactLeft,
   ContactRight,
   PublicationsLeft,
@@ -75,6 +77,12 @@ export function resolveSpread(view: View, search: string): Spread {
         };
       case 'skills':
         return { left: <SkillsLeft />, right: <SkillsRight />, isLeftCover: true };
+      case 'certificates':
+        return {
+          left: <CertificatesLeft />,
+          right: <CertificatesRight />,
+          isLeftCover: true,
+        };
       case 'contact':
         return { left: <ContactLeft />, right: <ContactRight />, isLeftCover: true };
     }

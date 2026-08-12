@@ -43,7 +43,19 @@ export interface Publication {
   doi: string;
 }
 
-export type PageKind = 'work' | 'publications' | 'skills' | 'contact';
+export interface Certification {
+  id: string;
+  title: string;
+  issuer: string;
+  date: string;
+}
+
+export type PageKind =
+  | 'work'
+  | 'publications'
+  | 'skills'
+  | 'certificates'
+  | 'contact';
 
 /** Which spread is on screen. */
 export type View =

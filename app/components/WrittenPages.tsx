@@ -3,6 +3,7 @@
 import { FormEvent, useState } from 'react';
 import { TIMELINE } from '@constants/work';
 import { PUBLICATIONS } from '@constants/publications';
+import { CERTIFICATIONS, ISSUER_COUNT } from '@constants/certifications';
 import { PROFILE, SOCIALS } from '@constants/profile';
 
 /* ---------------------------------------------------------------- Work --- */
@@ -173,8 +174,8 @@ export function SkillsLeft() {
           <p className="stat-label">Credits earned</p>
         </div>
         <div>
-          <p className="stat-value">10</p>
-          <p className="stat-label">Certifications</p>
+          <p className="stat-value">{CERTIFICATIONS.length}</p>
+          <p className="stat-label">Certificates</p>
         </div>
       </div>
     </div>
@@ -215,6 +216,60 @@ export function SkillsRight() {
           {PROFILE.education} &middot; CGPA {PROFILE.cgpa}
         </p>
       </div>
+    </>
+  );
+}
+
+/* ------------------------------------------------------- Certificates --- */
+
+export function CertificatesLeft() {
+  return (
+    <div className="dark-page">
+      <h2 className="brand-title">CERTS</h2>
+      <p className="brand-subtitle">&lt;the paper trail /&gt;</p>
+
+      <div className="sketch-note on-dark">
+        <p className="section-lede" style={{ margin: 0 }}>
+          Courses I finished and have the certificate to prove it, from a Python
+          bootcamp in first year through to AWS and computer vision. Newest first.
+        </p>
+      </div>
+
+      <div className="stat-row">
+        <div>
+          <p className="stat-value">{CERTIFICATIONS.length}</p>
+          <p className="stat-label">Certificates</p>
+        </div>
+        <div>
+          <p className="stat-value">{ISSUER_COUNT}</p>
+          <p className="stat-label">Issuers</p>
+        </div>
+        <div>
+          <p className="stat-value">4</p>
+          <p className="stat-label">Years</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function CertificatesRight() {
+  return (
+    <>
+      <h1 className="page-title">CERTIFICATES</h1>
+      <ul className="cert-list">
+        {CERTIFICATIONS.map((entry) => (
+          <li className="cert-item" key={entry.id}>
+            <span className="cert-stamp">{entry.date.split(' ')[1]}</span>
+            <div className="cert-body">
+              <h3>{entry.title}</h3>
+              <p>
+                {entry.issuer} &middot; {entry.date}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

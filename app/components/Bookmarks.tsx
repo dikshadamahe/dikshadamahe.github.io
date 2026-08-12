@@ -10,7 +10,7 @@ interface Tab {
   view: View;
 }
 
-/** Three per sheet, matching the width of the bookmark window. */
+/** Grouped to fit the width of the bookmark window on one sheet. */
 const TAB_PAGES: Tab[][] = [
   CATEGORIES.map((category) => ({
     label: category.label,
@@ -18,8 +18,9 @@ const TAB_PAGES: Tab[][] = [
   })),
   [
     { label: 'Work', view: { kind: 'page', page: 'work' } },
-    { label: 'Publications', view: { kind: 'page', page: 'publications' } },
+    { label: 'Papers', view: { kind: 'page', page: 'publications' } },
     { label: 'Skills', view: { kind: 'page', page: 'skills' } },
+    { label: 'Certificates', view: { kind: 'page', page: 'certificates' } },
   ],
 ];
 
