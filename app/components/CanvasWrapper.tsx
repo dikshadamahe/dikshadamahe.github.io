@@ -37,7 +37,7 @@ export default function CanvasWrapper() {
         <color attach="background" args={['#B4C7D9']} />
         <Suspense fallback={null}>
           {activeRoad === 'main' ? (
-            <ScrollControls pages={5} damping={0.3}>
+            <ScrollControls pages={8} damping={0.3}>
               <ambientLight intensity={0.6} />
               <fog attach="fog" args={['#B4C7D9', 15, 80]} />
               <MonsoonWorld />

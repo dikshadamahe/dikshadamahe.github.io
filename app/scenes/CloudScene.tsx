@@ -221,7 +221,7 @@ export default function CloudScene() {
       <Text
         ref={hindiRef}
         font="/fonts/YatraOne-Regular.ttf"
-        fontSize={1.65}
+        fontSize={1.0}
         letterSpacing={0.02}
         position={[0, RISE_FROM_Y + 0.9, 7]}
         color="#243B53"
@@ -235,7 +235,7 @@ export default function CloudScene() {
       <Text
         ref={englishRef}
         font="/fonts/CormorantGaramond-Bold.ttf"
-        fontSize={1.05}
+        fontSize={0.6}
         letterSpacing={0.08}
         position={[0, RISE_FROM_Y, 7]}
         color="#243B53"

@@ -5,9 +5,10 @@ import { useFrame } from '@react-three/fiber';
 import { useScroll, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
-const BOAT_POS: [number, number, number] = [4, 0.3, -8];
+const BOAT_POS: [number, number, number] = [2, 0.15, -8];
 const GIRL_Y = 1.25;
-const GIRL_Z = -8;
+const GALI_START_Z = -5;
+const GALI_END_Z = -95;
 
 export default function GirlSequence() {
   const data = useScroll();
@@ -32,7 +33,7 @@ export default function GirlSequence() {
   const target = useRef({
     x: -12,
     y: GIRL_Y,
-    z: GIRL_Z,
+    z: GALI_START_Z,
     scale: 1,
     opacity: 1,
     boatVisible: true,
@@ -40,75 +41,86 @@ export default function GirlSequence() {
   });
 
   useFrame((_, delta) => {
-    const walkP = data.range(0.40, 0.08); // 40-48% — walks in slowly
-    const bendP = data.range(0.48, 0.05); // 48-53% — bends to pick up boat
-    const holdP = data.range(0.53, 0.04); // 53-57% — stands with boat
-    const smileP = data.range(0.57, 0.04); // 57-61% — faces camera, smiles
-    const runP = data.range(0.61, 0.09); // 61-70% — runs away into distance
+    const walkInP = data.range(0.28, 0.06); // 28-34% — walks in from left
+    const bendP = data.range(0.34, 0.04); // 34-38% — bends to pick up boat
+    const holdP = data.range(0.38, 0.03); // 38-41% — holds boat
+    const smileP = data.range(0.41, 0.03); // 41-44% — smiles at camera
+    const chaseP = data.range(0.44, 0.46); // 44-90% — chase through gali
+    const fadeP = data.range(0.9, 0.05); // 90-95% — fades into fog
 
     const t = target.current;
-    let showGirl = walkP > 0 || bendP > 0 || holdP > 0 || smileP > 0 || runP > 0;
+    let showGirl =
+      walkInP > 0 || bendP > 0 || holdP > 0 || smileP > 0 || chaseP > 0 || fadeP > 0;
 
-    if (walkP > 0 && walkP < 1) {
-      t.x = THREE.MathUtils.lerp(-12, 4, walkP);
+    if (walkInP > 0 && walkInP < 1) {
+      t.x = THREE.MathUtils.lerp(-12, 2, walkInP);
       t.y = GIRL_Y;
-      t.z = GIRL_Z;
+      t.z = GALI_START_Z;
       t.scale = 1;
       t.opacity = 1;
       t.boatVisible = true;
       t.texture = walkTex;
     } else if (bendP > 0 && bendP < 1) {
-      t.x = 4;
+      t.x = 2;
       t.y = THREE.MathUtils.lerp(GIRL_Y, GIRL_Y - 0.35, Math.sin(bendP * Math.PI));
-      t.z = GIRL_Z;
+      t.z = GALI_START_Z;
       t.scale = 1;
       t.opacity = 1;
       t.boatVisible = true;
       t.texture = bendTex;
     } else if (holdP > 0 && holdP < 1) {
-      t.x = 4;
+      t.x = 2;
       t.y = GIRL_Y;
-      t.z = GIRL_Z;
+      t.z = GALI_START_Z;
       t.scale = 1;
       t.opacity = 1;
       t.boatVisible = false;
       t.texture = holdTex;
     } else if (smileP > 0 && smileP < 1) {
-      t.x = 4;
+      t.x = 2;
       t.y = GIRL_Y;
-      t.z = GIRL_Z;
+      t.z = GALI_START_Z;
       t.scale = 1;
       t.opacity = 1;
       t.boatVisible = false;
       t.texture = smileTex;
-    } else if (runP > 0) {
-      t.x = 4;
+    } else if (chaseP > 0 && fadeP <= 0) {
+      const chase = Math.min(chaseP, 1);
+      t.x = Math.sin(chase * 8) * 0.5;
       t.y = GIRL_Y;
-      t.z = THREE.MathUtils.lerp(GIRL_Z, -50, Math.min(runP, 1));
-      t.scale = THREE.MathUtils.lerp(1, 0.1, Math.min(runP, 1));
-      t.opacity = THREE.MathUtils.lerp(1, 0.2, Math.min(runP, 1));
+      t.z = THREE.MathUtils.lerp(GALI_START_Z, GALI_END_Z, chase);
+      t.scale = 1;
+      t.opacity = 1;
+      t.boatVisible = false;
+      t.texture = runTex;
+    } else if (fadeP > 0) {
+      const fade = Math.min(fadeP, 1);
+      t.x = Math.sin(8) * 0.5;
+      t.y = GIRL_Y;
+      t.z = GALI_END_Z;
+      t.scale = THREE.MathUtils.lerp(1, 0.1, fade);
+      t.opacity = THREE.MathUtils.lerp(1, 0, fade);
       t.boatVisible = false;
       t.texture = runTex;
       if (t.scale < 0.15) showGirl = false;
-    } else if (data.offset < 0.40) {
+    } else if (data.offset < 0.28) {
       t.x = -12;
       t.y = GIRL_Y;
-      t.z = GIRL_Z;
+      t.z = GALI_START_Z;
       t.scale = 1;
       t.opacity = 1;
       t.boatVisible = false;
       t.texture = walkTex;
       showGirl = false;
     } else {
-      // Between completed phases / past run — keep last run state hidden
       t.boatVisible = false;
       showGirl = false;
     }
 
-    // Boat visible from walk through bend (scroll past 0.40, before hold)
     if (boatRef.current) {
+      // Boat visible during walk-in and bend only (before girl picks it up)
       const boatShouldShow =
-        data.offset >= 0.40 && holdP <= 0 && smileP <= 0 && runP <= 0 && t.boatVisible;
+        data.offset >= 0.28 && holdP <= 0 && smileP <= 0 && chaseP <= 0 && fadeP <= 0 && t.boatVisible;
       boatRef.current.visible = boatShouldShow;
     }
 
@@ -158,7 +170,7 @@ export default function GirlSequence() {
 
   return (
     <group>
-      {/* Boat beside the road */}
+      {/* Boat in a puddle in the gali */}
       <mesh
         ref={boatRef}
         position={BOAT_POS}
@@ -175,7 +187,7 @@ export default function GirlSequence() {
       </mesh>
 
       {/* Girl sprite */}
-      <mesh ref={girlRef} position={[-12, GIRL_Y, GIRL_Z]} visible={false}>
+      <mesh ref={girlRef} position={[-12, GIRL_Y, GALI_START_Z]} visible={false}>
         <planeGeometry args={[2, 2.5]} />
         <meshBasicMaterial
           ref={girlMatRef}

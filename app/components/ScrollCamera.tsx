@@ -5,37 +5,40 @@ import { useScroll } from '@react-three/drei';
 import * as THREE from 'three';
 
 /**
- * Scroll → camera targets
- * 0.00–0.15: Y=10, Z=15, rotX=0   (clouds)
- * 0.15–0.25: hold high            (Namaste visible)
- * 0.25–0.50: Y 10→2, Z 15→5, rotX 0→-0.2  (descent)
- * 0.50–1.00: Y=2, Z=5, rotX=-0.1  (road level)
+ * Scroll → camera targets (gali chase)
+ * 0.00–0.25: Y=10, Z=15, rotX=0        (clouds)
+ * 0.25–0.44: Y 10→2, Z 15→3, rotX 0→-0.15  (descent into gali)
+ * 0.44–0.90: Y=2, Z 3→-87, rotX=-0.08  (chase through gali)
+ * 0.90–1.00: hold at end
  */
-function targetCameraY(offset: number) {
+function targetY(offset: number) {
   if (offset < 0.25) return 10;
-  if (offset < 0.5) {
-    const t = (offset - 0.25) / 0.25;
+  if (offset < 0.44) {
+    const t = (offset - 0.25) / 0.19;
     return THREE.MathUtils.lerp(10, 2, t);
   }
   return 2;
 }
 
-function targetCameraZ(offset: number) {
+function targetZ(offset: number) {
   if (offset < 0.25) return 15;
-  if (offset < 0.5) {
-    const t = (offset - 0.25) / 0.25;
-    return THREE.MathUtils.lerp(15, 5, t);
+  if (offset < 0.44) {
+    const t = (offset - 0.25) / 0.19;
+    return THREE.MathUtils.lerp(15, 3, t);
   }
-  return 5;
+  // Chase: camera follows the gali path
+  const chaseT = (offset - 0.44) / 0.46; // 0→1 over 44-90%
+  const clampedChase = Math.min(chaseT, 1);
+  return THREE.MathUtils.lerp(3, -87, clampedChase); // -87 = GALI_END + GIRL_LEAD
 }
 
-function targetCameraRotX(offset: number) {
+function targetRotX(offset: number) {
   if (offset < 0.25) return 0;
-  if (offset < 0.5) {
-    const t = (offset - 0.25) / 0.25;
-    return THREE.MathUtils.lerp(0, -0.2, t);
+  if (offset < 0.44) {
+    const t = (offset - 0.25) / 0.19;
+    return THREE.MathUtils.lerp(0, -0.15, t);
   }
-  return -0.1;
+  return -0.08; // slight downward look while running
 }
 
 export default function ScrollCamera() {
@@ -44,9 +47,9 @@ export default function ScrollCamera() {
 
   useFrame((state, delta) => {
     const offset = data.offset;
-    const y = targetCameraY(offset);
-    const z = targetCameraZ(offset);
-    const rotX = targetCameraRotX(offset);
+    const y = targetY(offset);
+    const z = targetZ(offset);
+    const rotX = targetRotX(offset);
 
     camera.position.y = THREE.MathUtils.damp(camera.position.y, y, 5, delta);
     camera.position.z = THREE.MathUtils.damp(camera.position.z, z, 5, delta);
