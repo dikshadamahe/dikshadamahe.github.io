@@ -3,7 +3,12 @@
 import { FormEvent, useState } from 'react';
 import { TIMELINE } from '@constants/work';
 import { PUBLICATIONS } from '@constants/publications';
-import { CERTIFICATIONS, ISSUER_COUNT } from '@constants/certifications';
+import {
+  CERTIFICATIONS,
+  ISSUER_COUNT,
+  LINKEDIN_CERTIFICATES,
+} from '@constants/certifications';
+import { SKILL_ICONS } from '@constants/skillIcons';
 import { PROFILE, SOCIALS } from '@constants/profile';
 
 /* ---------------------------------------------------------------- Work --- */
@@ -168,12 +173,19 @@ export function SkillsRight() {
       {Object.entries(PROFILE.skills).map(([group, items]) => (
         <div className="sketch-note" key={group} style={{ marginBottom: '1.8rem' }}>
           <h2 className="skill-group">{group}</h2>
-          <div className="card-meta" style={{ marginTop: '0.6rem' }}>
-            {items.map((item) => (
-              <span className="tech-chip" key={item}>
-                {item}
-              </span>
-            ))}
+          <div className="skill-row">
+            {items.map((item) => {
+              const icon = SKILL_ICONS(item);
+              return (
+                <span className="skill-chip" key={item}>
+                  {icon && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img className="skill-logo" src={icon} alt="" loading="lazy" />
+                  )}
+                  {item}
+                </span>
+              );
+            })}
           </div>
         </div>
       ))}
@@ -226,16 +238,27 @@ export function CertificatesRight() {
   return (
     <>
       <h1 className="page-title">CERTIFICATES</h1>
+      <p className="section-lede" style={{ textAlign: 'center' }}>
+        Every card opens the credential on LinkedIn.
+      </p>
       <ul className="cert-list">
         {CERTIFICATIONS.map((entry) => (
-          <li className="cert-item" key={entry.id}>
-            <span className="cert-stamp">{entry.date.split(' ')[1]}</span>
-            <div className="cert-body">
-              <h3>{entry.title}</h3>
-              <p>
-                {entry.issuer} &middot; {entry.date}
-              </p>
-            </div>
+          <li key={entry.id}>
+            <a
+              className="cert-item"
+              href={entry.url ?? LINKEDIN_CERTIFICATES}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="cert-stamp">{entry.date.split(' ')[1]}</span>
+              <span className="cert-body">
+                <span className="cert-title">{entry.title}</span>
+                <span className="cert-issuer">
+                  {entry.issuer} &middot; {entry.date}
+                </span>
+              </span>
+              <span className="cert-go">&#8599;</span>
+            </a>
           </li>
         ))}
       </ul>

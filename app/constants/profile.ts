@@ -1,7 +1,7 @@
 export const PROFILE = {
   name: 'Diksha Damahe',
   brand: 'DIKSHA',
-  subtitle: '<ai \u0026 full-stack />',
+  subtitle: 'Software and AI/ML Engineer',
   volume: 'Portfolio Vol. 1',
   role: 'AI/ML + Full-Stack Developer',
   education: 'BTech CSE (AI & ML), VIT Bhopal 2027',

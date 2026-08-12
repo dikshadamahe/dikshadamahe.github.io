@@ -1,6 +1,13 @@
 import { Certification } from '@app-types';
 
 /**
+ * Where a certificate has no individual credential URL recorded yet, the card
+ * opens the LinkedIn certifications list, which holds every one of them.
+ */
+export const LINKEDIN_CERTIFICATES =
+  'https://www.linkedin.com/in/dikshadamahe/details/certifications/';
+
+/**
  * Union of the LinkedIn and resume lists. Computer Vision appears only on
  * LinkedIn, Fundamentals of AI and ML only on the resume; both are genuine.
  */

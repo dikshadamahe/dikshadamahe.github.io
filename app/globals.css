@@ -128,10 +128,47 @@ a {
   margin-top: 1rem;
 }
 
+/* Table of contents pencilled onto the cover. */
+.cover-contents {
+  list-style: none;
+  margin: 2.2rem auto 0;
+  padding: 1rem 0 0;
+  border-top: 2px dashed rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1rem;
+  max-width: 22rem;
+}
+
+.cover-contents li {
+  font-family: var(--font-sketch);
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+.cover-contents li::before {
+  content: '\2022';
+  margin-right: 0.45rem;
+  color: var(--accent);
+}
+
 .cover-instruction {
-  margin-top: 4rem;
+  margin-top: 2.4rem;
+  padding: 0.45rem 1.4rem;
+  display: inline-block;
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
   font-family: var(--font-sketch);
   font-size: 1.2rem;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.cover:hover .cover-instruction {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
   animation: squiggle 0.25s infinite linear;
 }
 
@@ -1166,6 +1203,8 @@ a {
   display: flex;
   align-items: center;
   gap: 1rem;
+  text-decoration: none;
+  color: inherit;
   background: #fff;
   border: var(--stroke-width) solid var(--text-ink);
   border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
@@ -1195,18 +1234,65 @@ a {
   color: var(--text-light-ink);
 }
 
-.cert-body h3 {
+.cert-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.cert-title {
+  display: block;
   font-family: var(--font-sketch);
   font-size: 1.3rem;
-  margin: 0;
   line-height: 1.15;
 }
 
-.cert-body p {
+.cert-issuer {
+  display: block;
   font-family: var(--font-body);
   font-size: 0.85rem;
   color: var(--text-light-ink);
-  margin: 0.2rem 0 0 0;
+  margin-top: 0.2rem;
+}
+
+.cert-go {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  color: var(--text-light-ink);
+  opacity: 0;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+.cert-item:hover .cert-go {
+  opacity: 1;
+  color: var(--accent);
+}
+
+/* --- Skill chips with brand marks --- */
+
+.skill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  padding: 0.25rem 0.65rem;
+  border: 2px solid rgba(17, 17, 17, 0.25);
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  color: var(--text-light-ink);
+  background: #fffef8;
+}
+
+.skill-logo {
+  width: 1.05rem;
+  height: 1.05rem;
+  object-fit: contain;
 }
 
 /* --- Sketch form (Contact) --- */

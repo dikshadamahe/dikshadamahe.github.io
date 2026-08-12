@@ -29,7 +29,7 @@ export const TIMELINE: TimelineEntry[] = [
     id: 'hcl',
     type: 'work',
     title: 'Hindustan Copper Ltd',
-    subtitle: 'Engineer Intern',
+    subtitle: 'AI/ML Engineering Intern',
     date: 'May 2026 – Jul 2026',
     detail: 'Malanjkhand Copper Project — Built RecovAI for copper flotation optimization',
   },

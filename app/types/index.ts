@@ -48,6 +48,8 @@ export interface Certification {
   title: string;
   issuer: string;
   date: string;
+  /** Credential page. Falls back to the LinkedIn certifications list. */
+  url?: string;
 }
 
 export type PageKind = 'work' | 'publications' | 'certificates' | 'contact';

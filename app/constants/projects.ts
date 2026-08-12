@@ -13,7 +13,21 @@ export const PROJECTS: Project[] = [
     highlight: 'R\u00b2 = 0.972 on 26 process variables, trained on 1,778 shift logs',
     tech: ['Python', 'XGBoost', 'SHAP', 'FastAPI', 'SciPy', 'SQLite'],
     github: 'https://github.com/dikshadamahe/RecovAI',
-    live: 'https://recovai-xys2.onrender.com',
+    live: 'https://hcl-recovai.onrender.com/',
+  },
+  {
+    id: 'quant-factor',
+    title: 'QuantFactor',
+    date: 'Aug 2026',
+    category: 'research',
+    description:
+      'Factor research and backtesting engine that refuses to lie to you: point-in-time data, real transaction costs, and multiple-testing corrections by default.',
+    detail:
+      'Most open-source backtesters leak the future. This one enforces a t+1 execution lag so a signal computed on day t can only trade on day t+1, models commission, spread, slippage and volume-weighted market impact, and applies Bonferroni and Benjamini-Hochberg corrections so a factor that only looks good because you tried forty of them gets caught. Walk-forward out-of-sample windows and market-regime decomposition round it out.',
+    highlight: 'Point-in-time correctness and cost modelling enforced by default',
+    tech: ['Python', 'pandas', 'NumPy', 'SciPy', 'Matplotlib'],
+    github: 'https://github.com/dikshadamahe/quant-factor-backtest',
+    live: null,
   },
   {
     id: 'fossee',

@@ -2,12 +2,21 @@
 
 import { forwardRef } from 'react';
 import { PROFILE } from '@constants/profile';
+import { PROJECTS } from '@constants/projects';
+import { CERTIFICATIONS } from '@constants/certifications';
 
 interface Props {
   onOpen: () => void;
 }
 
 const Cover = forwardRef<HTMLDivElement, Props>(function Cover({ onOpen }, ref) {
+  const contents = [
+    `${PROJECTS.length} projects`,
+    'work & papers',
+    `${CERTIFICATIONS.length} certificates`,
+    'the toolkit',
+  ];
+
   return (
     <div
       ref={ref}
@@ -26,7 +35,15 @@ const Cover = forwardRef<HTMLDivElement, Props>(function Cover({ onOpen }, ref) 
       <div className="cover-content">
         <h1 className="cover-title">{PROFILE.name}</h1>
         <p className="cover-subtitle">{PROFILE.volume}</p>
-        <div className="cover-instruction">Click to Open</div>
+
+        {/* A peek at the table of contents, so the cover is not a dead end. */}
+        <ul className="cover-contents">
+          {contents.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+
+        <div className="cover-instruction">Click to open &amp; have a read</div>
       </div>
     </div>
   );
