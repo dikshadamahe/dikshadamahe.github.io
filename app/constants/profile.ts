@@ -11,10 +11,11 @@ export const PROFILE = {
   phone: '+91 97709 25370',
   avatar: '/textures/avatar.jpg',
   skills: {
-    Languages: ['Python', 'TypeScript', 'JavaScript', 'SQL'],
-    Frontend: ['React', 'Next.js', 'Tailwind CSS', 'Framer Motion'],
+    Languages: ['Python', 'TypeScript', 'JavaScript', 'Dart', 'SQL'],
+    'Frontend / Mobile': ['React', 'Next.js', 'Flutter', 'Tailwind CSS', 'Framer Motion'],
     Backend: ['Django', 'DRF', 'FastAPI', 'Prisma'],
     'ML / Data': ['scikit-learn', 'XGBoost', 'SHAP', 'Pandas', 'TensorFlow'],
+    Cloud: ['AWS', 'Oracle OCI'],
   } as Record<string, string[]>,
 } as const;
 
